@@ -28,6 +28,7 @@ class WorldSession;
 struct MapEntry;
 
 #define MAXGROUPSIZE 5
+#define MAXGROUPSIZE1 5 //Ëæ»úÅÅ±¾ÈËÊý
 #define MAXRAIDSIZE 40
 #define MAX_RAID_SUBGROUPS MAXRAIDSIZE/MAXGROUPSIZE
 #define TARGETICONCOUNT 8

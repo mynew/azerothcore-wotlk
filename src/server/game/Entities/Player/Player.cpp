@@ -529,8 +529,9 @@ inline void KillRewarder::_RewardXP(Player* player, float rate)
         if (_maxNotGrayMember && player->IsAlive() &&
             _maxNotGrayMember->getLevel() >= player->getLevel())
             xp = _isFullXP ?
-                uint32(xp * rate) :             // Reward FULL XP if all group members are not gray.
-                uint32(xp * rate / 2) + 1;      // Reward only HALF of XP if some of group members are gray.
+            uint32(xp * rate) :             // Reward FULL XP if all group members are not gray.
+            //uint32(xp * rate / 2) + 1;      // Reward only HALF of XP if some of group members are gray.
+            uint32(xp * rate);
         else
             xp = 0;
     }
@@ -583,7 +584,8 @@ void KillRewarder::_RewardPlayer(Player* player, bool isDungeon)
     if (!_isPvP || _isBattleGround)
     {
         const float rate = _group ?
-            _groupRate * float(player->getLevel()) / _sumLevel : // Group rate depends on summary level.
+            1.0f:
+            //_groupRate * float(player->getLevel()) / _sumLevel : // Group rate depends on summary level.
             1.0f;                                                // Personal rate is 100%.
         if (_xp)
             // 4.2. Give XP.
@@ -3194,8 +3196,23 @@ void Player::GiveXP(uint32 xp, Unit* victim, float group_rate)
     // Favored experience increase END
 
     // XP to money conversion processed in Player::RewardQuest
-    if (level >= sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL))
-        return;
+    if (sWorld->getIntConfig(CONFIG_levelcap) == 1) {
+        if (level >= 60 && !HasAchieved(1283) || level >= 60 && !HasAchieved(1285)) {
+            ModifyMoney(xp * 0.5);
+            return;
+        }
+        else if (level >= 70 && !HasAchieved(1287) || level >= 70 && !HasAchieved(1286)) {
+            ModifyMoney(xp * 0.5);
+            return;
+        }
+        else if (level >= sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL)) {
+            return;
+        }
+    }
+    else {
+        if (level >= sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL))
+            return;
+    }
 
     uint32 bonus_xp = 0;
     bool recruitAFriend = GetsRecruitAFriendBonus(true);
@@ -22037,7 +22054,7 @@ inline bool Player::_StoreOrEquipNewItem(uint32 vendorslot, uint32 item, uint8 c
     }
 
     Item* it = bStore ?
-        StoreNewItem(vDest, item, true) :
+        StoreNewItem(vDest, item, true, Item::GenerateItemRandomPropertyId(item)) :
         EquipNewItem(uiDest, item, true);
     if (it)
     {

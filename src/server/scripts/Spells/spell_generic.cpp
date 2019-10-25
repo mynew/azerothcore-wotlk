@@ -4442,6 +4442,13 @@ enum Mounts
     SPELL_INVINCIBLE_150                = 72283,
     SPELL_INVINCIBLE_310                = 72284,
 
+	//´«¼Ò±¦»ð¼ý
+    SPELL_CHUANJIA_0 = 95105,
+	SPELL_CHUANJIA_60 = 95029,
+	SPELL_CHUANJIA_100 = 95026,
+	SPELL_CHUANJIA_150 = 95027,
+	SPELL_CHUANJIA_310 = 95028,
+
     // Blazing Hippogryph
     SPELL_BLAZING_HIPPOGRYPH_150        = 74854,
     SPELL_BLAZING_HIPPOGRYPH_280        = 74855,
@@ -4552,6 +4559,14 @@ class spell_gen_mount : public SpellScriptLoader
                             break;
                         default:
                             break;
+                    }
+                    if (map == 571) {
+                        if (mount == 95027 || mount == 95028 || mount == 95026 || mount == 95105 || mount == 95029) {
+                            if (!target->HasSpell(SPELL_COLD_WEATHER_FLYING)) {
+                                mount = 0;
+                            }
+
+                        }
                     }
 
                     if (mount)

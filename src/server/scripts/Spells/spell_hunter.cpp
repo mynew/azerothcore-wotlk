@@ -24,8 +24,47 @@ enum HunterSpells
     // Ours
     SPELL_HUNTER_WYVERN_STING_DOT                   = 24131,
 
-    // Theirs
-    SPELL_HUNTER_ASPECT_OF_THE_BEAST                = 13161,
+	//¡Á???
+	SPELL_1=95078,
+	SPELL_pet1=99911,
+	SPELL_2=95080,
+	SPELL_pet2=99912,
+	SPELL_8=95081,
+	SPELL_pet8=99913,
+	SPELL_4=95082,
+	SPELL_pet4=99914,
+	SPELL_5=95083,
+	SPELL_pet5=99915,
+	SPELL_16=95094,
+	SPELL_pet16=99916,
+	SPELL_32=95095,
+	SPELL_pet32=99917,
+	SPELL_64=95096,
+	SPELL_pet64=99918,
+	SPELL_128=95097,
+	SPELL_pet128=99919,
+	SPELL_250=95098,
+	SPELL_pet250=99920,
+	SPELL_10=95099,
+	SPELL_pet10=99921,
+	SPELL_20=95100,
+	SPELL_pet20=99922,
+	SPELL_40=95101,
+	SPELL_pet40=99923,
+	SPELL_80=95102,
+	SPELL_pet80=99924,
+	SPELL_160=95103,
+	SPELL_pet160=99925,
+    SPELL_shanghai=99930,
+    SPELL_PETshanghai = 99933,
+    SPELL_mofa = 99931,
+    SPELL_PETmofa = 99934,
+    SPELL_shengming = 99932,
+    SPELL_PETshengming = 99935,
+    SPELL_qusan = 95092,
+    SPELL_PETqusan = 99936,
+	// Theirs
+	SPELL_HUNTER_ASPECT_OF_THE_BEAST                = 13161,
     SPELL_HUNTER_ASPECT_OF_THE_BEAST_PET            = 61669,
     SPELL_HUNTER_ASPECT_OF_THE_VIPER                = 34074,
     SPELL_HUNTER_ASPECT_OF_THE_VIPER_ENERGIZE       = 34075,
@@ -1221,6 +1260,1047 @@ class spell_hun_viper_attack_speed : public SpellScriptLoader
         }
 };
 
+class pro1 : public SpellScriptLoader
+{
+    public:
+        pro1() : SpellScriptLoader("pro1") { }
+
+        class pro1_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro1_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet1))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet1);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet1, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_1))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_1)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro1_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro1_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro1_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro1_AuraScript();
+        }
+};
+
+class pro2 : public SpellScriptLoader
+{
+    public:
+        pro2() : SpellScriptLoader("pro2") { }
+
+        class pro2_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro2_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet2))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet2);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet2, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_2))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_2)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro2_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro2_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro2_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro2_AuraScript();
+        }
+};
+
+class pro8 : public SpellScriptLoader
+{
+    public:
+        pro8() : SpellScriptLoader("pro8") { }
+
+        class pro8_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro8_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet8))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet8);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet8, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_8))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_8)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro8_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro8_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro8_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro8_AuraScript();
+        }
+};
+
+class pro4 : public SpellScriptLoader
+{
+    public:
+        pro4() : SpellScriptLoader("pro4") { }
+
+        class pro4_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro4_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet4))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet4);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet4, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_4))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_4)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro4_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro4_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro4_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro4_AuraScript();
+        }
+};
+
+class pro5 : public SpellScriptLoader
+{
+    public:
+        pro5() : SpellScriptLoader("pro5") { }
+
+        class pro5_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro5_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet5))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet5);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet5, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_5))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_5)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro5_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro5_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro5_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro5_AuraScript();
+        }
+};
+
+class pro16 : public SpellScriptLoader
+{
+    public:
+        pro16() : SpellScriptLoader("pro16") { }
+
+        class pro16_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro16_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet16))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet16);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet16, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_16))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_16)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro16_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro16_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro16_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro16_AuraScript();
+        }
+};
+
+class pro32 : public SpellScriptLoader
+{
+    public:
+        pro32() : SpellScriptLoader("pro32") { }
+
+        class pro32_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro32_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet32))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet32);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet32, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_32))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_32)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro32_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro32_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro32_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro32_AuraScript();
+        }
+};
+
+class pro64 : public SpellScriptLoader
+{
+    public:
+        pro64() : SpellScriptLoader("pro64") { }
+
+        class pro64_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro64_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet64))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet64);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet64, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_64))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_64)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro64_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro64_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro64_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro64_AuraScript();
+        }
+};
+
+class pro128 : public SpellScriptLoader
+{
+    public:
+        pro128() : SpellScriptLoader("pro128") { }
+
+        class pro128_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro128_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet128))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet128);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet128, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_128))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_128)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro128_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro128_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro128_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro128_AuraScript();
+        }
+};
+
+class pro250 : public SpellScriptLoader
+{
+    public:
+        pro250() : SpellScriptLoader("pro250") { }
+
+        class pro250_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro250_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet250))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet250);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet250, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_250))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_250)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro250_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro250_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro250_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro250_AuraScript();
+        }
+};
+
+class pro10 : public SpellScriptLoader
+{
+    public:
+        pro10() : SpellScriptLoader("pro10") { }
+
+        class pro10_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro10_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet10))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet10);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet10, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_10))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_10)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro10_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro10_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro10_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro10_AuraScript();
+        }
+};
+
+class pro20 : public SpellScriptLoader
+{
+    public:
+        pro20() : SpellScriptLoader("pro20") { }
+
+        class pro20_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro20_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet20))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet20);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet20, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_20))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_20)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro20_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro20_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro20_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro20_AuraScript();
+        }
+};
+
+class pro40 : public SpellScriptLoader
+{
+    public:
+        pro40() : SpellScriptLoader("pro40") { }
+
+        class pro40_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro40_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet40))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet40);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet40, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_40))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_40)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro40_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro40_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro40_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro40_AuraScript();
+        }
+};
+
+class pro80 : public SpellScriptLoader
+{
+    public:
+        pro80() : SpellScriptLoader("pro80") { }
+
+        class pro80_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro80_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet80))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet80);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet80, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_80))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_80)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro80_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro80_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro80_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro80_AuraScript();
+        }
+};
+
+class pro160 : public SpellScriptLoader
+{
+    public:
+        pro160() : SpellScriptLoader("pro160") { }
+
+        class pro160_AuraScript : public AuraScript
+        {
+            PrepareAuraScript(pro160_AuraScript);
+
+            bool Load()
+            {
+                return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+            }
+
+            bool Validate(SpellInfo const* /*spellInfo*/)
+            {
+                if (!sSpellMgr->GetSpellInfo(SPELL_pet160))
+                    return false;
+                return true;
+            }
+
+            void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (Pet* pet = caster->GetPet())
+							pet->RemoveAurasDueToSpell(SPELL_pet160);
+            }
+
+            void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				if (GetCaster())
+					if (Player* caster = GetCaster()->ToPlayer())
+						if (caster->GetPet())
+							caster->CastSpell(caster, SPELL_pet160, true);
+            }
+
+			void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+            {
+				Unit* pet = GetUnitOwner();
+				if (Unit* owner = pet->GetOwner())
+					if (owner->HasAura(SPELL_160))
+						return;
+
+				SetDuration(0);
+            }
+
+            void Register()
+            {
+				if (m_scriptSpellId == SPELL_160)
+				{
+					AfterEffectApply += AuraEffectApplyFn(pro160_AuraScript::OnApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+					AfterEffectRemove += AuraEffectRemoveFn(pro160_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+				}
+				else
+					AfterEffectApply += AuraEffectApplyFn(pro160_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, AURA_EFFECT_HANDLE_REAL);
+            }
+        };
+
+        AuraScript* GetAuraScript() const
+        {
+            return new pro160_AuraScript();
+        }
+};
+
+class qusan : public SpellScriptLoader
+{
+public:
+    qusan() : SpellScriptLoader("qusan") { }
+
+    class qusan_AuraScript : public AuraScript
+    {
+        PrepareAuraScript(qusan_AuraScript);
+
+        bool Load()
+        {
+            return GetCaster() && GetCaster()->GetTypeId() == TYPEID_PLAYER;
+        }
+
+        bool Validate(SpellInfo const* /*spellInfo*/)
+        {
+            if (!sSpellMgr->GetSpellInfo(SPELL_PETqusan))
+                return false;
+            return true;
+        }
+
+        void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+        {
+            if (GetCaster())
+                if (Player* caster = GetCaster()->ToPlayer())
+                    if (Pet* pet = caster->GetPet())
+                        pet->RemoveAurasDueToSpell(SPELL_PETqusan);
+        }
+
+        void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+        {
+            if (GetCaster())
+                if (Player* caster = GetCaster()->ToPlayer())
+                    if (caster->GetPet())
+                        caster->CastSpell(caster, SPELL_PETqusan, true);
+        }
+
+        void OnPetApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+        {
+            Unit* pet = GetUnitOwner();
+            if (Unit* owner = pet->GetOwner())
+                if (owner->HasAura(SPELL_qusan))
+                    return;
+
+            SetDuration(0);
+        }
+
+        void Register()
+        {
+            if (m_scriptSpellId == SPELL_qusan)
+            {
+                AfterEffectApply += AuraEffectApplyFn(qusan_AuraScript::OnApply, EFFECT_0, SPELL_AURA_PERIODIC_TRIGGER_SPELL, AURA_EFFECT_HANDLE_REAL);
+                AfterEffectRemove += AuraEffectRemoveFn(qusan_AuraScript::OnRemove, EFFECT_0, SPELL_AURA_PERIODIC_TRIGGER_SPELL, AURA_EFFECT_HANDLE_REAL);
+            }
+            else
+                AfterEffectApply += AuraEffectApplyFn(qusan_AuraScript::OnPetApply, EFFECT_0, SPELL_AURA_PERIODIC_TRIGGER_SPELL, AURA_EFFECT_HANDLE_REAL);
+        }
+    };
+
+    AuraScript* GetAuraScript() const
+    {
+        return new qusan_AuraScript();
+    }
+};
+
+
 void AddSC_hunter_spell_scripts()
 {
     // Ours
@@ -1229,6 +2309,22 @@ void AddSC_hunter_spell_scripts()
     new spell_hun_wyvern_sting();
     new spell_hun_animal_handler();
     new spell_hun_generic_scaling();
+	new pro1();
+	new pro2();
+	new pro8();
+	new pro4();
+	new pro5();
+	new pro16();
+	new pro32();
+	new pro64();
+	new pro128();
+	new pro250();
+	new pro10();
+	new pro20();
+	new pro40();
+	new pro80();
+	new pro160();
+    new qusan();
     new spell_hun_taming_the_beast();
 
     // Theirs
