@@ -83,6 +83,12 @@
 #include "LuaEngine.h"
 #endif
 
+// playerbot mod
+#include "playerbot.h"
+#include "PlayerbotAIConfig.h"
+#include "RandomPlayerbotMgr.h"
+
+
 ACE_Atomic_Op<ACE_Thread_Mutex, bool> World::m_stopEvent = false;
 uint8 World::m_ExitCode = SHUTDOWN_EXIT_CODE;
 uint32 World::m_worldLoopCounter = 0;
@@ -1988,7 +1994,10 @@ void World::SetInitialWorldSettings()
             }
         }
     }
-    
+
+    //auctionbot.Init();
+    sPlayerbotAIConfig.Initialize();
+
     uint32 startupDuration = GetMSTimeDiffToNow(startupBegin);
     sLog->outString();
     sLog->outError("WORLD: World initialized in %u minutes %u seconds", (startupDuration / 60000), ((startupDuration % 60000) / 1000));
@@ -2143,6 +2152,16 @@ void World::Update(uint32 diff)
 
     if (m_gameTime > m_NextGuildReset)
         ResetGuildCap();
+
+	// playerbot mod
+    sRandomPlayerbotMgr.UpdateAI(diff);
+    sRandomPlayerbotMgr.UpdateSessions(diff);
+
+    //if (m_timers[WUPDATE_AHBOT].Passed())
+    //{
+    //    sAuctionBot->Update();
+    //    m_timers[WUPDATE_AHBOT].Reset();
+    //}
 
     // pussywizard:
     // acquire mutex now, this is kind of waiting for listing thread to finish it's work (since it can't process next packet)
@@ -2532,6 +2551,9 @@ void World::ShutdownServ(uint32 time, uint32 options, uint8 exitcode)
         m_ShutdownTimer = time;
         ShutdownMsg(true);
     }
+
+	// playerbot mod
+    sRandomPlayerbotMgr.LogoutAllBots();
 
     sScriptMgr->OnShutdownInitiate(ShutdownExitCode(exitcode), ShutdownMask(options));
 }
