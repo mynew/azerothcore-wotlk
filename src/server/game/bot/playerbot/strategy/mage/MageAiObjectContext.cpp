@@ -145,8 +145,8 @@ namespace BotAI
                 creators["frost nova"] = &AiObjectContextInternal::frost_nova;
                 creators["arcane intellect"] = &AiObjectContextInternal::arcane_intellect;
                 creators["arcane intellect on party"] = &AiObjectContextInternal::arcane_intellect_on_party;
-                creators["conjure water"] = &AiObjectContextInternal::conjure_water;
-                creators["conjure food"] = &AiObjectContextInternal::conjure_food;
+                //creators["conjure water"] = &AiObjectContextInternal::conjure_water;
+                //creators["conjure food"] = &AiObjectContextInternal::conjure_food;
                 creators["molten armor"] = &AiObjectContextInternal::molten_armor;
                 creators["mage armor"] = &AiObjectContextInternal::mage_armor;
                 creators["ice armor"] = &AiObjectContextInternal::ice_armor;

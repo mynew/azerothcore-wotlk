@@ -1,7 +1,6 @@
 #pragma once
 
 class PlayerbotAI;
-class PlayerbotAIAware;
 
 namespace BotAI
 {

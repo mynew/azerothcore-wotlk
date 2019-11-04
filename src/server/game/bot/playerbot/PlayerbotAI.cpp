@@ -463,7 +463,7 @@ void PlayerbotAI::DoNextAction()
 			{
 				ai->SetMaster(member);
 				ai->ResetStrategies();
-				ai->TellMaster("挂机勿扰");
+				ai->TellMaster("Hello");
 				break;
 			}
 		}

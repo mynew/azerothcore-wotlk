@@ -1,5 +1,4 @@
 #pragma once
-class PlayerbotAI;
 
 namespace BotAI
 {

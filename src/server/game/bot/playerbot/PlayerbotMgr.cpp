@@ -212,7 +212,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
 	}
 
 	ai->ResetStrategies();
-	ai->TellMaster("组我干嘛，挂机中。。。");
+	ai->TellMaster("Hello!");
 	sLog->outBasic("Bot %s logged in", bot->GetName().c_str());
 
 	uint32 account = sObjectMgr->GetPlayerAccountIdByGUID(bot->GetGUID());
@@ -656,8 +656,6 @@ list<string> PlayerbotHolder::HandlePlayerbotCommand(char const* args, Player* m
 		}
 		else if (master && member != master->GetGUID())
 		{
-            WorldSession* w = master->GetSession();
-
 			out << ProcessBotCommand(cmdStr, member,
                 master->GetSession()->GetSecurity() >= SEC_PLAYER, //SEC_GAMEMASTER, thesawolf
 				master->GetSession()->GetAccountId(),

@@ -32,21 +32,21 @@ void LoadList(string value, T &list)
 
 bool PlayerbotAIConfig::Initialize()
 {
-    sLog->outBasic("由ike3初始化智能玩家机器人！");
+    sLog->outBasic("Initializing AI Playerbot by ike3, based on the original Playerbot by blueboy");
 
     string error;
 	vector<string> args;
     char const* cfg_file = _TRINITY_BOT_CONFIG;
     if (!config.LoadInitial(cfg_file))
     {
-        sLog->outBasic("智能玩家机器人被禁用，无法打开配置文件aiplayerbot.conf");
+        sLog->outBasic("AI Playerbot is Disabled. Unable to open configuration file bot_playerbots.conf");
         return false;
     }
 
     enabled = config.GetBoolDefault("AiPlayerbot.Enabled", true);
     if (!enabled)
     {
-        sLog->outBasic("人工智能玩家在配置文件aiplayerbot.conf启用");
+        sLog->outBasic("AI Playerbot is Disabled in bot_playerbots.conf");
         return false;
     }
 
@@ -162,7 +162,7 @@ bool PlayerbotAIConfig::Initialize()
     maxGuildTaskRewardTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskRewardTime", 600);
 
     RandomPlayerbotFactory::CreateRandomBots();
-    sLog->outBasic("已经加载随机机器人配置文件");
+    sLog->outBasic("AI Playerbot configuration loaded");
 
     return true;
 }

@@ -119,42 +119,42 @@ bool PlayerbotSecurity::CheckLevelFor(PlayerbotSecurityLevel level, bool silent,
 	switch (realLevel)
 	{
 	case PLAYERBOT_SECURITY_DENY_ALL:
-		out << "我现在有点忙";
+		out << "I'm kind of busy now";
 		break;
 	case PLAYERBOT_SECURITY_TALK:
 		switch (reason)
 		{
 		case PLAYERBOT_DENY_NONE:
-			out << "我稍后再做";
+			out << "I'll do it later";
 			break;
 		case PLAYERBOT_DENY_LOW_LEVEL:
-			out << "你的等级太低了: |cffff0000" << (uint32)from->getLevel() << "|cffffffff/|cff00ff00" << (uint32)bot->getLevel();
+			out << "You are too low level: |cffff0000" << (uint32)from->getLevel() << "|cffffffff/|cff00ff00" << (uint32)bot->getLevel();
 			break;
 		case PLAYERBOT_DENY_GEARSCORE:
 		{
 			int botGS = (int)bot->GetPlayerbotAI()->GetEquipGearScore(bot, false, false);
 			int fromGS = (int)bot->GetPlayerbotAI()->GetEquipGearScore(from, false, false);
-			out << "你的装备得分太低了: |cffff0000" << fromGS << "|cffffffff/|cff00ff00" << botGS;
+			out << "Your gearscore is too low: |cffff0000" << fromGS << "|cffffffff/|cff00ff00" << botGS;
 		}
 		break;
 		case PLAYERBOT_DENY_NOT_YOURS:
-			out << "我已经有一个主人了";
+			out << "I have a master already";
 			break;
 		case PLAYERBOT_DENY_IS_BOT:
-			out << "你是个机器人";
+			out << "You are a bot";
 			break;
 		case PLAYERBOT_DENY_OPPOSING:
-			out << "你是敌人";
+			out << "You are the enemy";
 			break;
 		case PLAYERBOT_DENY_DEAD:
-			out << "我死了,稍后再做";
+			out << "I'm dead. Will do it later";
 			break;
 		case PLAYERBOT_DENY_INVITE:
-			out << "请先邀请我加入您的请先邀请我加入你的群队伍";
+			out << "Invite me to your group first";
 			break;
 		case PLAYERBOT_DENY_FAR:
 		{
-			out << "我太远了";
+			out << "I am too far away";
 
 			uint32 area = bot->GetAreaId();
 			if (area)
@@ -168,15 +168,15 @@ bool PlayerbotSecurity::CheckLevelFor(PlayerbotSecurityLevel level, bool silent,
 		}
 		break;
 		case PLAYERBOT_DENY_FULL_GROUP:
-			out << "我是一个完整的团队 ";
+			out << "I am in a full group. Will do it later";
 			break;
 		default:
-			out << "我不能那样做";
+			out << "I can't do that";
 			break;
 		}
 		break;
 	case PLAYERBOT_SECURITY_INVITE:
-		out << "请先邀请我加入您的队伍";
+		out << "Invite me to your group first";
 		break;
 	}
 

@@ -42,7 +42,7 @@ namespace BotAI
                 bot->GetPlayerbotAI()->SetMaster(inviter);
 
             ai->ResetStrategies();
-            ai->TellMaster("我在挂机请自行踢我出队伍");
+            ai->TellMaster("Hi!");
             return true;
         }
     };

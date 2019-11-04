@@ -5,7 +5,7 @@
 
 using namespace BotAI;
 
-class PartyMemberToDispelPredicate : public FindPlayerPredicate, public BotAI::PlayerbotAIAware
+class PartyMemberToDispelPredicate : public FindPlayerPredicate, public PlayerbotAIAware
 {
 public:
     PartyMemberToDispelPredicate(PlayerbotAI* ai, uint32 dispelType) :

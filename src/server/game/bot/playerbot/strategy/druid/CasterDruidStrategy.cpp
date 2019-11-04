@@ -61,8 +61,8 @@ private:
     static ActionNode* starfall(PlayerbotAI* ai)
     {
         return new ActionNode ("starfall",
-            /*P*/ NextAction::array(0, new NextAction("moonkin form"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("hurricane"), NULL),
+            /*P*/ NextAction::array(0, new NextAction("moonkin form"), NULL),//枭兽形态
+            /*A*/ NextAction::array(0, new NextAction("hurricane"), NULL),//飓风
             /*C*/ NULL);
     }
     static ActionNode* insect_swarm(PlayerbotAI* ai)

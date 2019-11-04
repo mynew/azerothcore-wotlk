@@ -32,7 +32,7 @@ bool ReachAreaTriggerAction::Execute(Event event)
 
     if (bot->GetMapId() != atEntry->map || bot->GetDistance(atEntry->x, atEntry->y, atEntry->z) > sPlayerbotAIConfig.sightDistance)
     {
-        ai->TellMaster("挂机中有事在群里找我");
+        ai->TellMaster("I won't follow: too far away");
         return true;
     }
 
@@ -41,7 +41,7 @@ bool ReachAreaTriggerAction::Execute(Event event)
 	mm.MovePoint(atEntry->map, atEntry->x, atEntry->y, atEntry->z);
     float distance = bot->GetDistance(atEntry->x, atEntry->y, atEntry->z);
     float delay = 1000.0f * distance / bot->GetSpeed(MOVE_RUN) + sPlayerbotAIConfig.reactDelay;
-    bot->Say("等我哈", LANG_UNIVERSAL);
+    bot->Say("Wait for me", LANG_UNIVERSAL);
     ai->SetNextCheckDelay(delay);
     context->GetValue<LastMovement&>("last movement")->Get().lastAreaTrigger = triggerId;
 
@@ -70,6 +70,6 @@ bool AreaTriggerAction::Execute(Event event)
     p.rpos(0);
     bot->GetSession()->HandleAreaTriggerOpcode(p);
 
-    ai->TellMaster("挂机。。。。。。。。。。");
+    ai->TellMaster("Hi!");
     return true;
 }

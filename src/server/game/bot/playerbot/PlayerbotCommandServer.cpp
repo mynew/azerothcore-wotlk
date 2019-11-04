@@ -50,7 +50,7 @@ public:
             return 0;
         }
 
-        ostringstream s; s << "启动随机机器人命令在服务器端口 " << sPlayerbotAIConfig.commandServerPort << " 上";
+        ostringstream s; s << "Starting Playerbot Command Server on port " << sPlayerbotAIConfig.commandServerPort;
         sLog->outString(s.str().c_str());
 
         ACE_INET_Addr server(sPlayerbotAIConfig.commandServerPort);

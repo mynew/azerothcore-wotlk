@@ -9,7 +9,7 @@ vector<string>& split(const string &s, char delim, vector<string> &elems)
 {
     stringstream ss(s);
     string item;
-    while (getline(ss, item, delim))
+    while(getline(ss, item, delim))
     {
         elems.push_back(item);
     }
@@ -25,23 +25,23 @@ vector<string> split(const string &s, char delim)
 
 char *strstri(const char *haystack, const char *needle)
 {
-    if (!*needle)
+    if ( !*needle )
     {
         return (char*)haystack;
     }
-    for (; *haystack; ++haystack)
+    for ( ; *haystack; ++haystack )
     {
-        if (tolower(*haystack) == tolower(*needle))
+        if ( tolower(*haystack) == tolower(*needle) )
         {
             const char *h = haystack, *n = needle;
-            for (; *h && *n; ++h, ++n)
+            for ( ; *h && *n; ++h, ++n )
             {
-                if (tolower(*h) != tolower(*n))
+                if ( tolower(*h) != tolower(*n) )
                 {
                     break;
                 }
             }
-            if (!*n)
+            if ( !*n )
             {
                 return (char*)haystack;
             }
@@ -76,16 +76,16 @@ uint64 extractGuid(WorldPacket& packet)
 }
 
 std::string &ltrim(std::string &s) {
-    //s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
-    return s;
+        //s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+        return s;
 }
 
 std::string &rtrim(std::string &s) {
-    //s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
-    return s;
+        //s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+        return s;
 }
 
 std::string &trim(std::string &s) {
-    return ltrim(rtrim(s));
+        return ltrim(rtrim(s));
 }
 
