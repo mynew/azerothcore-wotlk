@@ -15,6 +15,7 @@
 #include "CellImpl.h"
 #include "FleeManager.h"
 #include "GameGraveyard.h"
+#pragma execution_character_set("utf-8")
 
 using namespace BotAI;
 using namespace std;

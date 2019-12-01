@@ -5,7 +5,7 @@
 
 using namespace BotAI;
 
-class PlayerWithoutAuraPredicate : public FindPlayerPredicate, public PlayerbotAIAware
+class PlayerWithoutAuraPredicate : public FindPlayerPredicate, public BotAI::PlayerbotAIAware
 {
 public:
     PlayerWithoutAuraPredicate(PlayerbotAI* ai, string aura) :

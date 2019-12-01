@@ -437,11 +437,11 @@ public:
             me->CastSpell(me, SPELL_DEMONIC_VAPOR_TRAIL_PERIODIC, true);
         }
 
-        void SpellHitTarget(Unit* , const SpellInfo* spellInfo)
+        /*void SpellHitTarget(Unit* , const SpellInfo* spellInfo)
         {
             if (spellInfo->Id == SPELL_DEMONIC_VAPOR)
                 me->CastSpell(me, SPELL_SUMMON_BLAZING_DEAD, true);
-        }
+        }*/
 
         void UpdateAI(uint32 diff)
         {
@@ -451,7 +451,7 @@ public:
                 if (timer >= 6000)
                 {
                     timer = 0;
-                    me->CastSpell(me, SPELL_SUMMON_BLAZING_DEAD, true);
+                    //me->CastSpell(me, SPELL_SUMMON_BLAZING_DEAD, true);
                 }
             }
         }

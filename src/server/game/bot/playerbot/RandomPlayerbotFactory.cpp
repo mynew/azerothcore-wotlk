@@ -9,6 +9,8 @@
 #include "GuildMgr.h"
 #include "RandomPlayerbotFactory.h"
 
+#pragma execution_character_set("utf-8")
+
 map<uint8, vector<uint8> > RandomPlayerbotFactory::availableRaces;
 
 RandomPlayerbotFactory::RandomPlayerbotFactory(uint32 accountId) : accountId(accountId)

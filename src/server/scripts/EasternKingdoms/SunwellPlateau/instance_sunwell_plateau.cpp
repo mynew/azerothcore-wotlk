@@ -119,11 +119,11 @@ class instance_sunwell_plateau : public InstanceMapScript
                         break;
 
                     // Xinef: Felmyst encounter
-                    case NPC_DEMONIC_VAPOR_TRAIL:
+                    /*case NPC_DEMONIC_VAPOR_TRAIL:
                     case NPC_UNYIELDING_DEAD:
                         if (Creature* felmyst = instance->GetCreature(FelmystGUID))
                             felmyst->AI()->JustSummoned(creature);
-                        break;
+                        break;*/
 
                     // Xinef: M'uru encounter
                     case NPC_DARKNESS:

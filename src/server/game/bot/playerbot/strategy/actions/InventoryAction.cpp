@@ -4,6 +4,8 @@
 
 #include "../values/ItemCountValue.h"
 
+#pragma execution_character_set("utf-8")
+
 using namespace BotAI;
 
 

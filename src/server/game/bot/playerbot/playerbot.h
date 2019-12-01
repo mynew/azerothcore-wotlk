@@ -1,10 +1,5 @@
 #pragma once
 
-std::vector<std::string> split(const std::string &s, char delim);
-#ifndef WIN32
-int strcmpi(std::string s1, std::string s2);
-#endif
-
 #include "../Spell.h"
 #include "WorldPacket.h"
 #include "../Loot/LootMgr.h"
@@ -29,3 +24,8 @@ int strcmpi(std::string s1, std::string s2);
 #include "RandomPlayerbotMgr.h"
 #include "ChatHelper.h"
 #include "PlayerbotAI.h"
+
+std::vector<std::string> split(const std::string &s, char delim);
+#ifndef WIN32
+int strcmpi(std::string s1, std::string s2);
+#endif
