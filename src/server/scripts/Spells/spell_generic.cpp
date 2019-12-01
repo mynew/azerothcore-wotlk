@@ -4442,6 +4442,13 @@ enum Mounts
     SPELL_INVINCIBLE_150                = 72283,
     SPELL_INVINCIBLE_310                = 72284,
 
+	//´«¼Ò±¦»ð¼ý
+    SPELL_CHUANJIA_0 = 95105,
+	SPELL_CHUANJIA_60 = 95029,
+	SPELL_CHUANJIA_100 = 95026,
+	SPELL_CHUANJIA_150 = 95027,
+	SPELL_CHUANJIA_310 = 95028,
+
     // Blazing Hippogryph
     SPELL_BLAZING_HIPPOGRYPH_150        = 74854,
     SPELL_BLAZING_HIPPOGRYPH_280        = 74855,
@@ -4552,6 +4559,14 @@ class spell_gen_mount : public SpellScriptLoader
                             break;
                         default:
                             break;
+                    }
+                    if (map == 571) {
+                        if (mount == 95027 || mount == 95028 || mount == 95026 || mount == 95105 || mount == 95029) {
+                            if (!target->HasSpell(SPELL_COLD_WEATHER_FLYING)) {
+                                mount = 0;
+                            }
+
+                        }
                     }
 
                     if (mount)
@@ -5114,6 +5129,7 @@ void AddSC_generic_spell_scripts()
     new spell_gen_summon_elemental("spell_gen_summon_fire_elemental", SPELL_SUMMON_FIRE_ELEMENTAL);
     new spell_gen_summon_elemental("spell_gen_summon_earth_elemental", SPELL_SUMMON_EARTH_ELEMENTAL);
     new spell_gen_mount("spell_magic_broom", 0, SPELL_MAGIC_BROOM_60, SPELL_MAGIC_BROOM_100, SPELL_MAGIC_BROOM_150, SPELL_MAGIC_BROOM_280);
+    new spell_gen_mount("SPELL_CHUANJIA", SPELL_CHUANJIA_0,SPELL_CHUANJIA_60, SPELL_CHUANJIA_100, SPELL_CHUANJIA_150, SPELL_CHUANJIA_310);
     new spell_gen_mount("spell_headless_horseman_mount", 0, SPELL_HEADLESS_HORSEMAN_MOUNT_60, SPELL_HEADLESS_HORSEMAN_MOUNT_100, SPELL_HEADLESS_HORSEMAN_MOUNT_150, SPELL_HEADLESS_HORSEMAN_MOUNT_280);
     new spell_gen_mount("spell_winged_steed_of_the_ebon_blade", 0, 0, 0, SPELL_WINGED_STEED_150, SPELL_WINGED_STEED_280);
     new spell_gen_mount("spell_big_love_rocket", SPELL_BIG_LOVE_ROCKET_0, SPELL_BIG_LOVE_ROCKET_60, SPELL_BIG_LOVE_ROCKET_100, SPELL_BIG_LOVE_ROCKET_150, SPELL_BIG_LOVE_ROCKET_310);

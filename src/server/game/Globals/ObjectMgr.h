@@ -693,10 +693,31 @@ class ObjectMgr
         ~ObjectMgr();
 
     public:
+		
+		
         typedef std::unordered_map<uint32, Item*> ItemMap;
 
         typedef std::unordered_map<uint32, Quest*> QuestMap;
 
+		// EJ objects
+        QuestMap mClassSpellQuestTemplates;
+        std::unordered_map<uint32, uint32> mTamableBeastsEntryStore;
+        // inventory type, sub class, required level, seq index
+        std::unordered_map<uint32, std::unordered_map<uint32, std::unordered_map<uint32, std::unordered_map<uint32, uint32>>>> mCategorizedEquipmentEntryStore;
+
+        QuestMap const& GetClassSpellQuestTemplates() const
+        {
+            return mClassSpellQuestTemplates;
+        }
+        std::unordered_map<uint32, uint32> GetTamableBeastsEntryStore() const
+        {
+            return mTamableBeastsEntryStore;
+        }
+        std::unordered_map<uint32, std::unordered_map<uint32, std::unordered_map<uint32, std::unordered_map<uint32, uint32>>>> GetCategorizedEquipmentEntryStore()
+        {
+            return mCategorizedEquipmentEntryStore;
+        }
+		
         typedef std::unordered_map<uint32, AreaTrigger> AreaTriggerContainer;
 
         typedef std::unordered_map<uint32, AreaTriggerTeleport> AreaTriggerTeleportContainer;

@@ -5920,6 +5920,7 @@ uint32 ObjectMgr::GetTaxiMountDisplayId(uint32 id, TeamId teamId, bool allowed_a
     return mount_id;
 }
 
+
 void ObjectMgr::LoadAreaTriggers()
 {
     uint32 oldMSTime = getMSTime();

@@ -1014,6 +1014,12 @@ void Unit::CastSpell(SpellCastTargets const& targets, SpellInfo const* spellInfo
 void Unit::CastSpell(Unit* victim, uint32 spellId, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, uint64 originalCaster)
 {
     CastSpell(victim, spellId, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
+    if (Player* player = ToPlayer())
+        if (Pet* pPet = player->GetPet())
+            if (spellId == 95015 || spellId == 95066 || spellId == 95001 || spellId == 95002 || spellId == 95003 || spellId == 95004 || spellId == 95005) {
+                pPet->RemoveAura(spellId);
+                pPet->CastSpell(pPet, spellId, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
+    }
 }
 
 void Unit::CastSpell(Unit* victim, uint32 spellId, TriggerCastFlags triggerFlags /*= TRIGGER_NONE*/, Item* castItem /*= NULL*/, AuraEffect const* triggeredByAura /*= NULL*/, uint64 originalCaster /*= 0*/)
@@ -1050,6 +1056,13 @@ void Unit::CastCustomSpell(Unit* target, uint32 spellId, int32 const* bp0, int32
     if (bp2)
         values.AddSpellMod(SPELLVALUE_BASE_POINT2, *bp2);
     CastCustomSpell(spellId, values, target, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
+    if (Player* player = ToPlayer())
+    if (Pet* pPet = player->GetPet())
+    if (spellId == 99930 || spellId == 99931 || spellId == 99932) {
+        pPet->RemoveAura(spellId);
+        pPet->RemoveAura(95093);
+        pPet->CastCustomSpell(spellId, values, pPet, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
+    }
 }
 
 void Unit::CastCustomSpell(uint32 spellId, SpellValueMod mod, int32 value, Unit* target, bool triggered, Item* castItem, AuraEffect const* triggeredByAura, uint64 originalCaster)
@@ -6042,6 +6055,20 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                     target = this;
                     break;
                 }
+				case 95066:
+				{
+					triggered_spell_id = 95085;
+					basepoints0 = damage / 5;
+					target = this;
+					break;
+				}
+				case 95015:
+				{
+					triggered_spell_id = 95009;
+					basepoints0 = damage / 5;
+					target = this;
+					break;
+				}
                 // Divine purpose
                 case 31871:
                 case 31872:
@@ -7695,6 +7722,34 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
             {
                 basepoints0 = CalculatePct(int32(damage), triggerAmount);
                 triggered_spell_id = 51460;
+                break;
+            }
+            //恩赐解脱
+            if (dummySpell->Id == 95040)
+            {
+                basepoints0 = CalculatePct(int32(damage), triggerAmount);
+                triggered_spell_id = 95041;
+                break;
+            }
+            //无影剑
+            if (dummySpell->Id == 95042)
+            {
+                basepoints0 = CalculatePct(int32(damage), triggerAmount);
+                triggered_spell_id = 95043;
+                break;
+            }
+            //代达罗斯之殇
+            if (dummySpell->Id == 95044)
+            {
+                basepoints0 = CalculatePct(int32(damage), triggerAmount);
+                triggered_spell_id = 95045;
+                break;
+            }
+            //恩赐解脱猎豹
+            if (dummySpell->Id == 95055)
+            {
+                basepoints0 = CalculatePct(int32(damage), triggerAmount);
+                triggered_spell_id = 95056;
                 break;
             }
             // Threat of Thassarian

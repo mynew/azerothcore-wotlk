@@ -39,6 +39,9 @@
 #include "LuaEngine.h"
 #endif
 
+// Playerbot mod:
+#include "playerbot.h"
+
 namespace {
 
 std::string const DefaultPlayerName = "<none>";
@@ -189,6 +192,14 @@ uint32 WorldSession::GetGuidLow() const
 /// Send a packet to the client
 void WorldSession::SendPacket(WorldPacket const* packet)
 {
+	// Playerbot mod: send packet to bot AI
+    if (GetPlayer()) {
+        if (GetPlayer()->GetPlayerbotAI())
+            GetPlayer()->GetPlayerbotAI()->HandleBotOutgoingPacket(*packet);
+        else if (GetPlayer()->GetPlayerbotMgr())
+            GetPlayer()->GetPlayerbotMgr()->HandleMasterOutgoingPacket(*packet);
+    }
+
     if (!m_Socket)
         return;
 
@@ -248,6 +259,9 @@ void WorldSession::QueuePacket(WorldPacket* new_packet)
 /// Update the WorldSession (triggered by World update)
 bool WorldSession::Update(uint32 diff, PacketFilter& updater)
 {
+	// Playerbot mod
+    if (GetPlayer() && GetPlayer()->GetPlayerbotAI()) return true;
+
     if (updater.ProcessLogout())
     {
         UpdateTimeOutTime(diff);
@@ -313,6 +327,9 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
                               break;
 #endif
                           (this->*opHandle.handler)(*packet);
+							// playerbot mod
+							if (_player && _player->GetPlayerbotMgr())
+								_player->GetPlayerbotMgr()->HandleMasterIncomingPacket(*packet);
                         }
                         break;
                     case STATUS_TRANSFER:
@@ -377,6 +394,10 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
             HandleMovementOpcodes(*movementPacket);
         delete movementPacket;
     }
+
+	// playerbot mod
+	if (GetPlayer() && GetPlayer()->GetPlayerbotMgr())
+		GetPlayer()->GetPlayerbotMgr()->UpdateSessions(0);
 
     if (m_Socket && !m_Socket->IsClosed())
         ProcessQueryCallbacks();
@@ -460,6 +481,11 @@ void WorldSession::LogoutPlayer(bool save)
         if (uint64 lguid = _player->GetLootGUID())
             DoLootRelease(lguid);
 
+		// Playerbot mod: log out all player bots owned by this toon
+		if (GetPlayer()->GetPlayerbotMgr())
+			GetPlayer()->GetPlayerbotMgr()->LogoutAllBots();
+		sRandomPlayerbotMgr.OnPlayerLogout(_player);
+
         ///- If the player just died before logging out, make him appear as a ghost
         //FIXME: logout must be delayed in case lost connection with client in time of combat
         if (_player->GetDeathTimer())
@@ -520,8 +546,9 @@ void WorldSession::LogoutPlayer(bool save)
         _player->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_CHANGE_MAP);
 
         ///- If the player is in a group (or invited), remove him. If the group if then only 1 person, disband the group.
-        _player->UninviteFromGroup();
-
+		// playerbot mod
+		//_player->UninviteFromGroup();
+		
         // remove player from the group if he is:
         // a) in group; b) not in raid group; c) logging out normally (not being kicked or disconnected)
         if (_player->GetGroup() && !_player->GetGroup()->isRaidGroup() && !_player->GetGroup()->isLFGGroup() && m_Socket)
@@ -1334,4 +1361,15 @@ void WorldSession::InitWarden(BigNumber* k, std::string const& os)
         // _warden = new WardenMac();
         // _warden->Init(this, k);
     }
+}
+
+// playerbot mod
+void WorldSession::HandleBotPackets()
+{
+	WorldPacket* packet;
+	while (_recvQueue.next(packet))
+	{
+		OpcodeHandler const& opHandle = opcodeTable[packet->GetOpcode()];
+		(this->*opHandle.handler)(*packet);
+	}
 }

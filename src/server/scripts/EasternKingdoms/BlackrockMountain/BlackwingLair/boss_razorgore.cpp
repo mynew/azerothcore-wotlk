@@ -177,6 +177,11 @@ class spell_egg_event : public SpellScriptLoader
             {
                 if (InstanceScript* instance = GetCaster()->GetInstanceScript())
                     instance->SetData(DATA_EGG_EVENT, SPECIAL);
+                if (GameObject* egg = GetCaster()->FindNearestGameObject(177807, 10.0f))//ÐÞ¸´ºÚÒíÖ®³²Ò»ºÅBOSS²Èµ°
+                {
+                    egg->SetUInt32Value(GAMEOBJECT_FLAGS, 0);
+                    egg->RemoveFromWorld();
+                    }
             }
 
             void Register()

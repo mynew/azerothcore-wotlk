@@ -153,8 +153,9 @@ bool Pet::LoadPetFromDB(Player* owner, uint8 asynchLoadType, uint32 petentry, ui
         return false;
 
     // DK Pet exception
-    if (owner->getClass() == CLASS_DEATH_KNIGHT && !owner->CanSeeDKPet())
+    /*if (owner->getClass() == CLASS_DEATH_KNIGHT && !owner->CanSeeDKPet())
         return false;
+        */
 
     uint32 ownerid = owner->GetGUIDLow();
     PreparedStatement* stmt;
@@ -722,6 +723,7 @@ bool Guardian::InitStatsForLevel(uint8 petlevel)
     PetType petType = MAX_PET_TYPE;
     if (IsPet() && m_owner->GetTypeId() == TYPEID_PLAYER)
     {
+        /*
         if (m_owner->getClass() == CLASS_WARLOCK ||
             m_owner->getClass() == CLASS_SHAMAN ||          // Fire Elemental
             m_owner->getClass() == CLASS_DEATH_KNIGHT ||    // Risen Ghoul
@@ -734,6 +736,17 @@ bool Guardian::InitStatsForLevel(uint8 petlevel)
         }
         else
             sLog->outError("Unknown type pet %u is summoned by player class %u", GetEntry(), m_owner->getClass());
+        */
+        // better pet handling for mod-npc-beastmaster
+        if (cinfo->IsTameable(true))
+             {
+            petType = HUNTER_PET;
+            m_unitTypeMask |= UNIT_MASK_HUNTER_PET;
+            }
+        else
+             {
+            petType = SUMMON_PET;
+            }
     }
 
     uint32 creature_ID = (petType == HUNTER_PET) ? 1 : cinfo->Entry;
@@ -1868,7 +1881,7 @@ void Pet::InitTalentForLevel()
 
 uint8 Pet::GetMaxTalentPointsForLevel(uint8 level)
 { 
-    uint8 points = (level >= 20) ? ((level - 16) / 4) : 0;
+    uint8 points = (level >= 20) ? ((level - 18) / 2) : 0;
     // Mod points from owner SPELL_AURA_MOD_PET_TALENT_POINTS
     if (Unit* owner = GetOwner())
         points+=owner->GetTotalAuraModifier(SPELL_AURA_MOD_PET_TALENT_POINTS);

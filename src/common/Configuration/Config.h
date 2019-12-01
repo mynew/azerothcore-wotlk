@@ -19,11 +19,19 @@ typedef Trinity::AutoPtr<ACE_Configuration_Heap, ACE_Null_Mutex> Config;
 
 class ConfigMgr
 {
+    // playerbot mod
+public:
+    ConfigMgr() = default;
+    ConfigMgr(ConfigMgr const&) = delete;
+    ConfigMgr& operator=(ConfigMgr const&) = delete;
+    ~ConfigMgr() = default;
     friend class ACE_Singleton<ConfigMgr, ACE_Null_Mutex>;
     friend class ConfigLoader;
 
-    ConfigMgr() { }
-    ~ConfigMgr() { }
+    //ConfigMgr() { }
+    //~ConfigMgr() { }
+    //ConfigMgr(ConfigMgr const&);
+    //ConfigMgr& operator=(ConfigMgr const&);
 
 public:
     /// Method used only for loading main configuration files (authserver.conf and worldserver.conf)
@@ -62,8 +70,6 @@ private:
     Config _config;
     LockType _configLock;
 
-    ConfigMgr(ConfigMgr const&);
-    ConfigMgr& operator=(ConfigMgr const&);
 };
 
 #define sConfigMgr ACE_Singleton<ConfigMgr, ACE_Null_Mutex>::instance()

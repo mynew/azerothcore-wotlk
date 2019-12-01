@@ -28,6 +28,7 @@ class WorldSession;
 struct MapEntry;
 
 #define MAXGROUPSIZE 5
+#define MAXGROUPSIZE1 5 //Ëæ»úÅÅ±¾ÈËÊý
 #define MAXRAIDSIZE 40
 #define MAX_RAID_SUBGROUPS MAXRAIDSIZE/MAXGROUPSIZE
 #define TARGETICONCOUNT 8
@@ -289,6 +290,10 @@ class Group
 
         // FG: evil hacks
         void BroadcastGroupUpdate(void);
+
+		// ai playerbot mod
+        uint64 GetTargetIcon(int index) { return m_targetIcons[index]; }
+        Rolls* GetRolls() { return &RollId; }
 
         // LFG
         void AddLfgBuffFlag() { m_lfgGroupFlags |= GROUP_LFG_FLAG_APPLY_RANDOM_BUFF; }
